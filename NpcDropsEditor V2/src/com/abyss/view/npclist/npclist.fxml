@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.*?>
+<?import com.abyss.control.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="471.0" prefWidth="273.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abyss.view.npclist.NPCListPresenter">
+   <children>
+      <ListView fx:id="npcListView" layoutX="22.0" layoutY="45.0" onMousePressed="#addNpcClickAction" prefHeight="319.0" prefWidth="210.0" AnchorPane.bottomAnchor="62.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="45.0">
+         <cursor>
+            <Cursor fx:constant="OPEN_HAND" />
+         </cursor>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#finish" text="Add Npc" />
+              </items>
+            </ContextMenu>
+         </contextMenu></ListView>
+      <Button fx:id="finishButton" defaultButton="true" disable="true" layoutX="134.0" layoutY="388.0" mnemonicParsing="false" onAction="#finish" text="Finish" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="79.0" />
+      <TextField fx:id="searchNpcTextField" layoutX="108.0" layoutY="14.0" prefHeight="25.0" prefWidth="141.0" promptText="Search..." AnchorPane.leftAnchor="108.0" AnchorPane.rightAnchor="26.0" />
+      <NumberTextField fx:id="npcIndexTextField" layoutX="22.0" layoutY="388.0" prefHeight="25.0" prefWidth="102.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="132.0" />
+      <Label layoutX="22.0" layoutY="14.0" text="Npc List" AnchorPane.leftAnchor="22.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Button cancelButton="true" layoutX="189.0" layoutY="388.0" mnemonicParsing="false" onAction="#closeAction" prefHeight="25.0" prefWidth="57.0" text="Cancel" AnchorPane.bottomAnchor="21.0" AnchorPane.rightAnchor="14.0" />
+   </children>
+</AnchorPane>

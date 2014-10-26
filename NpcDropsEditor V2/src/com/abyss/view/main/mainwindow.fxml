@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="532.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abyss.view.main.MainWindowPresenter">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#openMenuItemPressed" text="Open…" />
+                  <MenuItem mnemonicParsing="false" onAction="#packDropMenuItemPressed" text="Pack..." />
+          </items>
+        </Menu>
+            <Menu mnemonicParsing="false" text="Drop Table Tools">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#itemListMenuItemPressed" text="Item List" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Abysspartyy" />
+      </menus>
+    </MenuBar>
+      <SplitPane dividerPositions="0.3343108504398827" prefHeight="379.0" prefWidth="606.0" VBox.vgrow="ALWAYS">
+        <items>
+            <AnchorPane fx:id="dropListPane" />
+            <AnchorPane fx:id="dropTablePane" />
+        </items>
+      </SplitPane>
+      <HBox prefHeight="22.0" prefWidth="667.0">
+         <children>
+            <BorderPane prefHeight="22.0" prefWidth="696.0" HBox.hgrow="ALWAYS">
+               <center>
+                  <Label fx:id="statusLabel" alignment="CENTER" prefHeight="17.0" prefWidth="666.0" text="status" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+         </children>
+      </HBox>
+  </children>
+</VBox>

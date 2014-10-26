@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="426.0" prefWidth="234.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abyss.view.main.droplist.DropListPresenter">
+   <children>
+      <ListView fx:id="dropListView" layoutX="19.0" layoutY="46.0" onMousePressed="#dropListViewPressed" prefHeight="334.0" prefWidth="196.0" AnchorPane.bottomAnchor="46.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="46.0">
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="copyMenuItem" mnemonicParsing="false" onAction="#copyButtonPressed" text="Copy" />
+                  <MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" onAction="#deleteButtonPressed" text="Delete" />
+              </items>
+            </ContextMenu>
+         </contextMenu></ListView>
+      <HBox alignment="CENTER" layoutX="19.0" layoutY="390.0" prefHeight="25.0" prefWidth="196.0" spacing="7.0" AnchorPane.bottomAnchor="11.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="19.0">
+         <children>
+            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonPressed" text="+" HBox.hgrow="ALWAYS" />
+            <Button fx:id="copyButton" disable="true" mnemonicParsing="false" onAction="#copyButtonPressed" text="Copy" HBox.hgrow="ALWAYS" />
+            <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#deleteButtonPressed" prefHeight="25.0" prefWidth="0.0" text="-" HBox.hgrow="ALWAYS" />
+            <Button mnemonicParsing="false" onAction="#deleteAllButtonPressed" text="Delete All" />
+         </children>
+      </HBox>
+      <TextField fx:id="searchTextField" layoutX="28.0" layoutY="14.0" prefHeight="25.0" prefWidth="156.0" promptText="Search..." AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="28.0" />
+   </children>
+</AnchorPane>

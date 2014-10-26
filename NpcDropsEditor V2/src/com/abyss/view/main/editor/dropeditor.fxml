@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<VBox prefHeight="381.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.abyss.view.main.editor.DropEditorPresenter">
+   <children>
+      <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <items>
+            <CheckBox fx:id="quickSaveCheckBox" mnemonicParsing="false" text="Quick Save">
+               <tooltip>
+                  <Tooltip text="Toggle this option to turn the save dialog on or off" />
+               </tooltip></CheckBox>
+          <Button fx:id="saveButton" disable="true" mnemonicParsing="false" onAction="#saveButtonPressed" text="Save">
+               <tooltip>
+                  <Tooltip text="Saves the drop table for the current tab" />
+               </tooltip></Button>
+            <Button fx:id="saveAllButton" disable="true" mnemonicParsing="false" onAction="#saveAllButtonPressed" text="Save All">
+               <tooltip>
+                  <Tooltip text="Saves the drop table for all of the open tabs" />
+               </tooltip></Button>
+            <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#deleteButtonPressed" text="Delete">
+               <tooltip>
+                  <Tooltip text="Deletes selected items (including multiple selection)" />
+               </tooltip></Button>
+            <Button fx:id="deleteAllButton" disable="true" mnemonicParsing="false" onAction="#deleteAllButtonPressed" text="Delete All">
+               <tooltip>
+                  <Tooltip text="Deletes ALL of the items in the drop table" />
+               </tooltip></Button>
+            <Button fx:id="addButton" disable="true" mnemonicParsing="false" onAction="#addButtonPressed" text="Add">
+               <tooltip>
+                  <Tooltip text="Adds a new NPC drop item to its table" />
+               </tooltip></Button>
+            <Button fx:id="closeAllButton" disable="true" mnemonicParsing="false" onAction="#closeAllButtonPressed" text="Close All">
+               <tooltip>
+                  <Tooltip text="Closes and saves all of the open tabs" />
+               </tooltip></Button>
+        </items>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </ToolBar>
+      <TabPane fx:id="dropToolPane" prefHeight="320.0" prefWidth="374.0" tabClosingPolicy="ALL_TABS" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>
