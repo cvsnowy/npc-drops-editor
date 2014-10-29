@@ -32,37 +32,34 @@ public class TabManager {
 	 *            - the NPC to edit
 	 */
 	public final void createNewDropTab(NPC npc) {
-		boolean alreadyCreated = false;
-		for (Tab existingTab : getDropToolPane().getTabs()) {
-			if (existingTab.getText().equals(npc.toString())) { // TODO a better
-																// way lol
-				getDropToolPane().getSelectionModel().select(existingTab);
-				alreadyCreated = true;
-				break;
+		openedTabsMap.forEach((tab, presenter) -> {
+			if (presenter.getNpc().equals(npc)) {
+				getDropToolPane().getSelectionModel().select(tab);
+				return;
+
 			}
-		}
-		if (!alreadyCreated) {
-			final Tab tab = new Tab(npc.toString());
-			NPCDropTableView defaultTable = new NPCDropTableView();
-			NPCDropTablePresenter tablePresenter = (NPCDropTablePresenter) defaultTable
-					.getPresenter();
-			tablePresenter.populateDropList(npc);
-			tab.setContent(defaultTable.getViewWithoutRootContainer());
-			getDropToolPane().getTabs().add(tab);
-			openedTabsMap.put(tab, tablePresenter);
-			getDropToolPane().getSelectionModel().selectLast();
+		});
 
-			model.getDropEditorPresenter().bindDeleteButton(
-					tablePresenter.disableOnSelectionProperty);
+		final Tab tab = new Tab(npc.toString());
+		NPCDropTableView defaultTable = new NPCDropTableView();
+		NPCDropTablePresenter tablePresenter = (NPCDropTablePresenter) defaultTable
+				.getPresenter();
+		tablePresenter.populateDropList(npc);
+		tab.setContent(defaultTable.getViewWithoutRootContainer());
+		getDropToolPane().getTabs().add(tab);
+		openedTabsMap.put(tab, tablePresenter);
+		getDropToolPane().getSelectionModel().selectLast();
 
-			tab.setOnCloseRequest((e) -> {
-				Tab closingTab = (Tab) e.getTarget();
-				NPCDropTablePresenter presenter = getPresenter(closingTab);
-				presenter.disableOnSelectionProperty.set(true);
-				presenter.saveDropTable(false);
-				handleOnTabClose(tab);
-			});
-		}
+		model.getDropEditorPresenter().bindDeleteButton(
+				tablePresenter.disableOnSelectionProperty);
+
+		tab.setOnCloseRequest((e) -> {
+			Tab closingTab = (Tab) e.getTarget();
+			NPCDropTablePresenter presenter = getPresenter(closingTab);
+			presenter.disableOnSelectionProperty.set(true);
+			presenter.saveDropTable(false);
+			handleOnTabClose(tab);
+		});
 
 	}
 

@@ -219,6 +219,7 @@ public class DropListPresenter implements Initializable {
 	}
 
 	private void loadNPCListChooser(boolean copy) {
+		String stageTitle = "Adding NPC...";
 		NPCListView npcListView = new NPCListView();
 		Scene scene = new Scene(npcListView.getView());
 		Stage stage = new Stage();
@@ -245,13 +246,13 @@ public class DropListPresenter implements Initializable {
 
 			}
 
-			stage.setTitle(copy ? "Copying: " + selectedNPC.toString()
-					: "NPC Chooser");
-
-			if (copy)
+			if (copy) {
+				stageTitle = "Copying: " + selectedNPC.toString();
 				presenter.copyDrops(selectedNPC.getDrops().toArray());
+			}
 		}
 
+		stage.setTitle(stageTitle);
 		stage.show();
 	}
 

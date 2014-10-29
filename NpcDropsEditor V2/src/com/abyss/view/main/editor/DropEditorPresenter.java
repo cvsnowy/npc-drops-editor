@@ -55,27 +55,25 @@ public class DropEditorPresenter implements Initializable {
 		dropToolPane
 				.getSelectionModel()
 				.selectedItemProperty()
-				.addListener(
-						(e, oldVal, newVal) -> {
-							//TODO redo how the buttons disable
-							//makes no sense
-							if (newVal != null) {
-								if (tabManager.getPresenter(newVal) != null)
-									bindDeleteButton(tabManager
-											.getPresenter(newVal).disableOnSelectionProperty);
-								deleteAllButton.setDisable(false);
-								addButton.setDisable(false);
-								closeAllButton.setDisable(false);
-								saveButton.setDisable(false);
-								saveAllButton.setDisable(false);
-							} else {
-								deleteAllButton.setDisable(true);
-								closeAllButton.setDisable(true);
-								saveButton.setDisable(true);
-								addButton.setDisable(true);
-								saveAllButton.setDisable(true);
-							}
-						});
+				.addListener((e, oldVal, newVal) -> {
+					// TODO redo ugly
+						if (newVal != null) {
+							if (tabManager.getPresenter(newVal) != null)
+								bindDeleteButton(tabManager
+										.getPresenter(newVal).disableOnSelectionProperty);
+							deleteAllButton.setDisable(false);
+							addButton.setDisable(false);
+							closeAllButton.setDisable(false);
+							saveButton.setDisable(false);
+							saveAllButton.setDisable(false);
+						} else {
+							deleteAllButton.setDisable(true);
+							closeAllButton.setDisable(true);
+							saveButton.setDisable(true);
+							addButton.setDisable(true);
+							saveAllButton.setDisable(true);
+						}
+					});
 	}
 
 	@FXML

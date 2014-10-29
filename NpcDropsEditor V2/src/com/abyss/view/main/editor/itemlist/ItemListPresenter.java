@@ -14,6 +14,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -30,6 +31,8 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import javax.inject.Inject;
+
+import org.controlsfx.dialog.Dialogs;
 
 import com.abyss.item.Item;
 import com.abyss.resource.ItemNames;
@@ -49,6 +52,9 @@ public class ItemListPresenter implements Initializable {
 	@FXML
 	Button addAllSelectedItemsButton;
 
+	@FXML
+	MenuItem addSelectedItemsMenuItem;
+
 	public ObjectProperty<Item> draggedItemProperty;
 
 	@Override
@@ -65,35 +71,42 @@ public class ItemListPresenter implements Initializable {
 
 	@FXML
 	public void addAllSelectedItemsButtonPressed() {
-		ObservableList<Item> selectedItems = itemListView.getSelectionModel()
-				.getSelectedItems();
-		if (model.getDropEditorPresenter().getViewingTabPresenter() != null) {
-			model.getDropEditorPresenter()
-					.getViewingTabPresenter()
-					.addNewDropItem(
-							selectedItems.toArray(new Item[selectedItems.size()]));
-		}
-
+		addItemToTable();
 	}
 
 	@FXML
 	public void itemListPressed(MouseEvent event) {
 		if (event.getButton().equals(MouseButton.PRIMARY)) {
 			if (event.getClickCount() == 2) {
-				if (!itemListView.getSelectionModel().isEmpty()) {
-					Item selectedItem = itemListView.getSelectionModel()
-							.getSelectedItem();
-					if (model.getDropEditorPresenter().getViewingTabPresenter() != null) {
-						model.getDropEditorPresenter().getViewingTabPresenter()
-								.addNewDropItem(selectedItem);
-					}
-				}
-
+				addItemToTable();
 			}
 		}
 
 	}
 
+	/**
+	 * Adds selected items from the item list to the viewing NPC's drop table.
+	 */
+	private final void addItemToTable() {
+		if (!itemListView.getSelectionModel().isEmpty()) {
+			ObservableList<Item> selectedItems = itemListView
+					.getSelectionModel().getSelectedItems();
+
+			if (model.getDropEditorPresenter().getViewingTabPresenter() != null) {
+				model.getDropEditorPresenter()
+						.getViewingTabPresenter()
+						.addNewDropItem(
+								selectedItems.toArray(new Item[selectedItems
+										.size()]));
+			} else {
+				Dialogs.create()
+						.title("Cannot Add Item")
+						.message(
+								"You cannot add any items if there are no tabs open!")
+						.showError();
+			}
+		}
+	}
 
 	private void setupItemListCellFactory() {
 		for (int itemId : ItemNames.getNames().keySet()) {
