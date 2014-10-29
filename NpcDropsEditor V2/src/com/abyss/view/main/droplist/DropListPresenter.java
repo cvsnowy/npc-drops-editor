@@ -237,7 +237,7 @@ public class DropListPresenter implements Initializable {
 					.getDropEditorPresenter().getViewingTabPresenter();
 
 			if (viewingTablePresenter != null
-					&& viewingTablePresenter.tableNeedsSaving()) {
+					&& viewingTablePresenter.tableNeedsSaving() && copy) {
 				// If a user is trying to copy a drop table of a npc that they
 				// are currently editing and they have not saved the changes
 				// yet, then it will force save.
