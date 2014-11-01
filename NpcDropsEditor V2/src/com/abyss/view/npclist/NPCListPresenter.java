@@ -101,7 +101,7 @@ public class NPCListPresenter implements Initializable {
 	}
 
 	private boolean addNpc() {
-		boolean sucessStatus = true;
+		boolean passChecks = true;
 
 		NPC newNpc = new NPC(Integer.parseInt(npcIndexTextField.getText()),
 				new NPCDrop[] { new NPCDrop(new Item(526), 100, 1, 1, false) });
@@ -121,12 +121,12 @@ public class NPCListPresenter implements Initializable {
 						.message(
 								"This NPC already exists! Please try another npc.")
 						.showError();
-				sucessStatus = false;
+				passChecks = false;
 				break;
 			}
 		}
 
-		if (sucessStatus) {
+		if (passChecks) {
 			if (presenterModel.getDropListPresenter().isFilteringList())
 				presenterModel.getDropListPresenter().resetSearch();
 			dropsManager.getMasterDropDefinitions().add(newNpc);
@@ -139,7 +139,7 @@ public class NPCListPresenter implements Initializable {
 
 		}
 
-		return sucessStatus;
+		return passChecks;
 	}
 
 	private void setupListFiltering() {

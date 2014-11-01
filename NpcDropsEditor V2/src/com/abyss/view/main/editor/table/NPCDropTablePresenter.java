@@ -333,46 +333,31 @@ public class NPCDropTablePresenter implements Initializable {
 			modifiedDrops.add(new NPCDrop(new Item(DEFAULT_ITEM), 100, 1, 1,
 					false));
 		} else if (itemToAdd != null) {
-			if (itemToAdd.length == 1) {
-				if (hasDuplicateItem(itemToAdd[0].getId())) {
-					Dialogs.create()
-							.title("Duplicate Item")
-							.masthead(itemToAdd[0].toString())
-							.message(
-									"You cannot add the same item to a drop table!")
-							.showError();
-					return;
+			ObservableList<Item> duplicateItemsList = FXCollections
+					.observableArrayList();
+
+			for (Item item : itemToAdd) {
+				if (hasDuplicateItem(item.getId())) {
+					duplicateItemsList.add(item);
+					continue;
 				}
 
-				Item item = new Item(itemToAdd[0].getId());
-				modifiedDrops.add(new NPCDrop(item, 100, 1, 1, false));
-			} else if (itemToAdd.length > 1) {
+				Item referenceItem = new Item(item.getId());
+				modifiedDrops.add(new NPCDrop(referenceItem, 100, 1, 1, false));
 
-				ObservableList<Item> duplicateItemsList = FXCollections
-						.observableArrayList();
-
-				for (Item item : itemToAdd) {
-					if (hasDuplicateItem(item.getId())) {
-						duplicateItemsList.add(item);
-						continue;
-					}
-
-					Item referenceItem = new Item(item.getId());
-					modifiedDrops.add(new NPCDrop(referenceItem, 100, 1, 1,
-							false));
-
-				}
-
-				if (!duplicateItemsList.isEmpty())
-					Dialogs.create()
-							.title("Duplicate Items")
-							.masthead("Some Items Couldn't be Added")
-							.message(
-									"The following items could not be added because they already exist: "
-											+ duplicateItemsList).showError();
-				duplicateItemsList.clear();
 			}
 
+			if (!duplicateItemsList.isEmpty()) {
+				Dialogs.create()
+						.title("Duplicate Item"
+								+ (duplicateItemsList.size() > 1 ? "s" : ""))
+						.message(
+								duplicateItemsList.size() == 1 ? "You cannot add the same item to a drop table!"
+										: "The following items could not be added because they already exist: "
+												+ duplicateItemsList)
+						.showError();
+				duplicateItemsList.clear();
+			}
 		}
 
 		int lastIndex = modifiedDrops.size() - 1;

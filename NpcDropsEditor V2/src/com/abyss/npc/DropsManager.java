@@ -20,12 +20,8 @@ import org.controlsfx.dialog.Dialogs;
 
 import com.abyss.item.Item;
 import com.abyss.tab.TabManager;
-import com.abyss.view.PresenterModel;
 
 public class DropsManager {
-
-	@Inject
-	PresenterModel viewModel;
 
 	@Inject
 	TabManager tabManager;
