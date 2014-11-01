@@ -44,7 +44,7 @@ public class NPCListPresenter implements Initializable {
 	DropsManager dropsManager;
 
 	@Inject
-	PresenterModel prsenterModel;
+	PresenterModel presenterModel;
 
 	@Inject
 	TabManager tabManager;
@@ -127,16 +127,16 @@ public class NPCListPresenter implements Initializable {
 		}
 
 		if (sucessStatus) {
+			if (presenterModel.getDropListPresenter().isFilteringList())
+				presenterModel.getDropListPresenter().resetSearch();
 			dropsManager.getMasterDropDefinitions().add(newNpc);
 			int lastIndex = dropsManager.getMasterDropDefinitions().size() - 1;
-			prsenterModel.getDropListPresenter().dropListView.getSelectionModel()
+			presenterModel.getDropListPresenter().dropListView.getSelectionModel()
 					.clearAndSelect(lastIndex);
-			prsenterModel.getDropListPresenter().dropListView.scrollTo(lastIndex);
-			prsenterModel.getDropListPresenter().dropListView.requestFocus();
+			presenterModel.getDropListPresenter().dropListView.scrollTo(lastIndex);
+			presenterModel.getDropListPresenter().dropListView.requestFocus();
 			tabManager.createNewDropTab(newNpc);
 
-			if (prsenterModel.getDropListPresenter().inFilterMode())
-				prsenterModel.getDropListPresenter().resetSearch();
 		}
 
 		return sucessStatus;

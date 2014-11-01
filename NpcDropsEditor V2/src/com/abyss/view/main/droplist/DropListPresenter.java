@@ -64,14 +64,14 @@ public class DropListPresenter implements Initializable {
 	@Inject
 	TabManager tabManager;
 
-	private List<Tab> pendingTabDeleteList;
+	private List<Tab> pendingTabCloseList;
 
-	private boolean filterMode;
+	private boolean filteringList;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		prsenterModel.setDropListPresenter(this);
-		pendingTabDeleteList = new ArrayList<Tab>();
+		pendingTabCloseList = new ArrayList<Tab>();
 		dropListView.getSelectionModel().setSelectionMode(
 				SelectionMode.MULTIPLE);
 		dropListView.setItems(dropsManager.getMasterDropDefinitions());
@@ -148,16 +148,16 @@ public class DropListPresenter implements Initializable {
 				.getTabs()) { // checks if there is a tab open and
 								// closes it
 			if (npcsList.contains(tabManager.getPresenter(tab).getNpc())) {
-				pendingTabDeleteList.add(tab);
+				pendingTabCloseList.add(tab);
 			}
 		}
 
 		// Finally closes all of the tabs in the pending delete list.
-		pendingTabDeleteList.stream().forEach((tab) -> {
+		pendingTabCloseList.stream().forEach((tab) -> {
 			tabManager.forceCloseTab(tab);
 		});
 
-		pendingTabDeleteList.clear();
+		pendingTabCloseList.clear();
 		dropsManager.getMasterDropDefinitions().removeAll(npcsList);
 		dropListView.requestFocus();
 
@@ -176,7 +176,7 @@ public class DropListPresenter implements Initializable {
 				(observable, oldValue, newValue) -> {
 					boolean disable = !newValue.isEmpty();
 
-					filterMode = disable;
+					filteringList = disable;
 
 					addButton.setDisable(disable);
 
@@ -228,7 +228,7 @@ public class DropListPresenter implements Initializable {
 		stage.initModality(Modality.WINDOW_MODAL);
 
 		if (!dropListView.getSelectionModel().isEmpty()) {
-			NPCListPresenter presenter = (NPCListPresenter) npcListView
+			NPCListPresenter npcListPresenter = (NPCListPresenter) npcListView
 					.getPresenter();
 
 			NPC selectedNPC = dropListView.getSelectionModel()
@@ -248,7 +248,7 @@ public class DropListPresenter implements Initializable {
 
 			if (copy) {
 				stageTitle = "Copying: " + selectedNPC.toString();
-				presenter.copyDrops(selectedNPC.getDrops().toArray());
+				npcListPresenter.copyDrops(selectedNPC.getDrops().toArray());
 			}
 		}
 
@@ -257,11 +257,11 @@ public class DropListPresenter implements Initializable {
 	}
 
 	public void resetSearch() {
-		filterMode = false;
+		filteringList = false;
 		searchTextField.setText("");
 	}
 
-	public boolean inFilterMode() {
-		return filterMode;
+	public boolean isFilteringList() {
+		return filteringList;
 	}
 }

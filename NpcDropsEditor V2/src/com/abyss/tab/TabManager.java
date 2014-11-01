@@ -32,14 +32,8 @@ public class TabManager {
 	 *            - the NPC to edit
 	 */
 	public final void createNewDropTab(NPC npc) {
-		openedTabsMap.forEach((tab, presenter) -> {
-			if (presenter.getNpc().equals(npc)) {
-				getDropToolPane().getSelectionModel().select(tab);
-				return;
-
-			}
-		});
-
+		if (checkForTab(npc))
+			return;
 		final Tab tab = new Tab(npc.toString());
 		NPCDropTableView defaultTable = new NPCDropTableView();
 		NPCDropTablePresenter tablePresenter = (NPCDropTablePresenter) defaultTable
@@ -101,6 +95,27 @@ public class TabManager {
 			}
 			openedTabsMap.clear();
 		}
+	}
+
+	/**
+	 * Checks if there is a tab is already open with the same NPC and selects
+	 * it.
+	 * 
+	 * @param npc
+	 *            - The NPC to check for.
+	 * @return true if there is a tab with the same NPC open.
+	 */
+	public final boolean checkForTab(NPC npc) {
+		for (Tab openedTab : openedTabsMap.keySet()) {
+			NPCDropTablePresenter presenter = openedTabsMap.get(openedTab);
+			if (presenter.getNpc().equals(npc)) {
+				getDropToolPane().getSelectionModel().select(openedTab);
+				return true;
+			}
+
+		}
+		return false;
+
 	}
 
 	public final int getOpenedTabsCount() {
